@@ -1,9 +1,18 @@
 import WebSocket from 'ws'
+import { conf } from '../types/conf.types'
+
 
 export class IpController {
-    public static connectToIp(ip: number) {
+    public static connectToIp(ip: number, config: conf) {
         const completeIp = `ws://192.168.34.${ip}`
-        this.ping(completeIp)
+        try {
+            this.ping(completeIp)
+            config.connected = true
+            console.log(config)
+        } catch (error) {
+            console.log(error)
+        }
+        
         console.log("i pinged:", completeIp)
     }
     public static isPinged(message: string): boolean{
@@ -16,9 +25,8 @@ export class IpController {
         const pairWs = new WebSocket(`${completeIp}:4000`)
 
         pairWs.on('open', () => {
-            console.log('Connected to the other WebSocket server')
-    
             pairWs.send(JSON.stringify({ route: 'ping', data: '🎅🏻' }))
+           
         })
         
         pairWs.on('message', (data) => {
