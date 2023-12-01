@@ -23,7 +23,7 @@ wss.on('connection', (ws: WebSocket) => {
         case 'ip':
             if(!isNaN(parsedMessage.data)) {
                 config.ip = parsedMessage.data
-                IpController.connectToIp(config.ip, ws)
+                IpController.connectToIp(config.ip)
                 console.log(`receiving: ${parsedMessage.data}`)
             }
             else{
@@ -34,7 +34,7 @@ wss.on('connection', (ws: WebSocket) => {
           break
         case 'ping':
             if(!config.connected && IpController.isPinged(parsedMessage.data)){
-                IpController.ping(`192.168.34.${config.ip}`, ws)
+                IpController.ping(`192.168.34.${config.ip}`)
                 config.connected = true
             }
             // IpController.ping
