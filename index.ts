@@ -60,14 +60,16 @@ wss.on('connection', (ws: WebSocket) => {
           config.isSelfReady && config.isOtherReady ? LightController.switchLight([0, 100, 0]) : ""
           break
         case 'reaction-time':
+          console.log(parsedMessage.data)
           const winner = ReactionTimeController.computeWinner(parsedMessage.data, config)
+          LightController.switchLight([255, 0, 0])
           timer.self = parsedMessage.data
           winner.self ? ws.send("winner") : ws.send("loser")
         
             break
         case 'shot':
           console.log('called shot')
-          LightController.switchLight([255, 0, 0])
+          
           break
         case 'get-shot-time':
             ws.send(timer.self)
