@@ -1,15 +1,15 @@
 import WebSocket from 'ws'
 
 export class IpController {
-    public static connectToIp(ip: number) {
-        const completeIp = `192.168.34.${ip}`
-        const ws = new WebSocket(completeIp)
+    public static connectToIp(ip: number, ws: WebSocket) {
+        const completeIp = `ws://192.168.34.${ip}`
         
         ws.on('open', () => {
-            console.log(`Connected to ${completeIp}`)
+            console.log(`sent ping ${completeIp}`)
             // must send json
             // call ping
-            ws.send(JSON.stringify({ route: 'Ping', data: 'Ping' }))
+            this.ping(completeIp, ws)
+           // ws.send(JSON.stringify({ route: 'Ping', data: 'Ping' }))
         })
 
         ws.on('message', (data) => {
@@ -30,8 +30,8 @@ export class IpController {
         }
         return false
     }
-    public static ping(completeIp: string){
-        const ws = new WebSocket(completeIp)
+    public static ping(completeIp: string, ws: WebSocket){
+       
         ws.on('open', () => {
             console.log(`Connected to ${completeIp}`)
             ws.send(JSON.stringify({ route: 'Ping', data: 'Ping' }))

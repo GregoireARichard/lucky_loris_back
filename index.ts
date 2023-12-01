@@ -3,7 +3,7 @@ import { IpController } from './controllers/ip.controller'
 
 const PORT = 4000
 
-const wss = new WebSocket.Server({ port: PORT })
+const wss = new WebSocket.Server({ host: process.env.ip, port: 4000 })
 type conf = {
     ip: number
     connected: boolean
@@ -23,14 +23,18 @@ wss.on('connection', (ws: WebSocket) => {
         case 'ip':
             if(!isNaN(parsedMessage.data)) {
                 config.ip = parsedMessage.data
-                IpController.connectToIp(config.ip)
+                IpController.connectToIp(config.ip, ws)
+                console.log(`Sending message: ${parsedMessage.data}`)
+            }
+            else{
+              console.log("couldn't parse data")
             }
             // ipcontroller
-          console.log(`Sending message: ${parsedMessage.data}`)
+          
           break
         case 'ping':
             if(!config.connected && IpController.isPinged(parsedMessage.data)){
-                IpController.ping(`192.168.34.${config.ip}`)
+                IpController.ping(`192.168.34.${config.ip}`, ws)
                 config.connected = true
             }
             // IpController.ping
