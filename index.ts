@@ -65,7 +65,6 @@ wss.on('connection', (ws: WebSocket) => {
           
             break
         case 'get-shot-time':
-            ReactionTimeController.getShotTime(timer, config)
             ws.send(timer.self)
               break
         default:
