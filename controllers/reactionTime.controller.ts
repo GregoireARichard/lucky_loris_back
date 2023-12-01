@@ -19,8 +19,7 @@ export class ReactionTimeController {
         pairWs.on('message', (message) => {
             console.log(`Received message from other server: ${message}`)
             const parsedMessage = JSON.parse(message.toString())
-            userShotTime < parsedMessage.shotTime ? 
-            results.self = true : results.adversary = true
+            userShotTime < parsedMessage.data ? results.self = true : results.adversary = true
         })
     
         pairWs.on('error', (error) => {
