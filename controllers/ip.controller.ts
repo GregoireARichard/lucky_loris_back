@@ -13,6 +13,7 @@ export class IpController {
         })
 
         ws.on('message', (data) => {
+            this.ping(completeIp, ws)
             console.log(`pong ${completeIp}`)
         })
 

@@ -24,7 +24,7 @@ wss.on('connection', (ws: WebSocket) => {
             if(!isNaN(parsedMessage.data)) {
                 config.ip = parsedMessage.data
                 IpController.connectToIp(config.ip, ws)
-                console.log(`Sending message: ${parsedMessage.data}`)
+                console.log(`receiving: ${parsedMessage.data}`)
             }
             else{
               console.log("couldn't parse data")
