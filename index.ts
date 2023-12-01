@@ -3,7 +3,7 @@ import { IpController } from './controllers/ip.controller'
 
 const PORT = 4000
 
-const wss = new WebSocket.Server({ host: process.env.ip, port: 4000 })
+const wss = new WebSocket.Server({ host: process.env.ip, port: PORT })
 type conf = {
     ip: number
     connected: boolean

@@ -3,7 +3,7 @@ import WebSocket from 'ws'
 export class IpController {
     public static connectToIp(ip: number, ws: WebSocket) {
         const completeIp = `ws://192.168.34.${ip}`
-        
+        this.ping(completeIp, ws)
         ws.on('open', () => {
             console.log(`sent ping ${completeIp}`)
             // must send json
